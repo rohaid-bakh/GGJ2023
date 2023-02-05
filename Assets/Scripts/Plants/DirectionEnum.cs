@@ -5,6 +5,6 @@ using UnityEngine;
 public enum DirectionEnum 
 {
     LEFT,
-    RIGHT,
+    RIGHT, 
     NONE
 }

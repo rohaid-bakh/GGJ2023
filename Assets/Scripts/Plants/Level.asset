@@ -13,4 +13,9 @@ MonoBehaviour:
   m_Name: Level
   m_EditorClassIdentifier: 
   plantsForLevel:
-  - {fileID: 11400000, guid: 5770f5d05744ba047b717110a54a9d6d, type: 2}
+  - {fileID: 9124228864588653745, guid: a0aefcda67bc9be4f95c806a328191fd, type: 3}
+  - {fileID: 6114704725296077091, guid: 6fd7ab128ac3dd345a1603f5241272d2, type: 3}
+  - {fileID: 4913621710841545295, guid: 734d4b9a302b76949a7a669b822578e7, type: 3}
+  - {fileID: 9124228864588653745, guid: a0aefcda67bc9be4f95c806a328191fd, type: 3}
+  - {fileID: 6114704725296077091, guid: 6fd7ab128ac3dd345a1603f5241272d2, type: 3}
+  spawnNumber: 3

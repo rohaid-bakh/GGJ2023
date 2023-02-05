@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 02c43af253cef5044923fde861e564a9, type: 3}
-  m_Name: Berry
+  m_Name: Puffball
   m_EditorClassIdentifier: 
-  Name: Berry
-  noteSequence: 000000000100000000000000
+  Name: Puffball
+  noteSequence: 010000000100000000000000
   plantGrowth:
-  - {fileID: 63017916, guid: cd8d190c821d5b340b3a849282091474, type: 3}
-  - {fileID: 440192258, guid: cd8d190c821d5b340b3a849282091474, type: 3}
-  - {fileID: 586829326, guid: cd8d190c821d5b340b3a849282091474, type: 3}
-  - {fileID: -1844025737, guid: cd8d190c821d5b340b3a849282091474, type: 3}
+  - {fileID: 1688973885, guid: b5336e5f55ffca44c8634a59c4ee8c1c, type: 3}
+  - {fileID: 792888150, guid: b5336e5f55ffca44c8634a59c4ee8c1c, type: 3}
+  - {fileID: 1166214638, guid: b5336e5f55ffca44c8634a59c4ee8c1c, type: 3}
+  - {fileID: 421468804, guid: b5336e5f55ffca44c8634a59c4ee8c1c, type: 3}

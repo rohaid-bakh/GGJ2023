@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.UI;
+using TMPro;
+using DG.Tweening;
 
 public class InputRegister : BeatAlert
 {
@@ -14,6 +16,10 @@ public class InputRegister : BeatAlert
     [SerializeField] private UnityEngine.UI.Image[] noteArray; // would like this moved to a different script
     [SerializeField] private Sprite[] leaves;
 
+    [Header("UI Labels")]
+    [SerializeField] private TextMeshProUGUI scoreTracker;
+
+    private float currCompletePlants; 
     private int currNoteIndex = 0; 
 
     private void Awake()
@@ -41,7 +47,13 @@ public class InputRegister : BeatAlert
         {
             for (int i = 0; i < currPlants.Length; i++)
             {
-                currPlants[i].checkInput(dir);
+               bool complete =  currPlants[i].checkInput(dir);
+               if(complete){
+                currCompletePlants++;
+                //    render.DOFade(0f , 2f).OnComplete(() => Destroy(gameObject))
+                SpriteRenderer plantDespawn = currPlants[i].GetComponent<SpriteRenderer>();
+                plantDespawn.DOFade(0f , 0.75f).OnComplete(() => Destroy(plantDespawn.gameObject));// remove thing Off Screen
+               }
             }
             if(dir == DirectionEnum.LEFT){
                 noteArray[currNoteIndex].sprite = leaves[0];
@@ -56,10 +68,13 @@ public class InputRegister : BeatAlert
             {
                 currPlants[i].checkInput(DirectionEnum.NONE);
             }
+             noteArray[currNoteIndex].sprite = leaves[2];
         }
+        scoreTracker.text = $"Completed Plants: {currCompletePlants}";
         currNoteIndex++;
        
     }
+
 
     public override void AlertCorrectFrame(bool isframe)
     {
