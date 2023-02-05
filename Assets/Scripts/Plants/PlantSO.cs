@@ -10,5 +10,5 @@ public class PlantSO : ScriptableObject
     public DirectionEnum[] noteSequence;
     [Range(100f, 500f)]
     public static int score;
-    public Sprite plant; 
+    public Sprite[] plantGrowth; 
 }
