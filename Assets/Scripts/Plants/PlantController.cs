@@ -27,17 +27,16 @@ public class PlantController : MonoBehaviour
         // Assert.IsNotNull(completeText, "The debug completion text is missing");
         // Assert.IsNotNull(correctSequence, "The debug sequence text is missing");
         
-        correctSequence.text = "Correct Sequence : \n";
-        for(int i = 0 ; i < plant.noteSequence.Length; i++){
-            correctSequence.text += plant.noteSequence[i] + " ";
-        }
+        // correctSequence.text = "Correct Sequence : \n";
+        // for(int i = 0 ; i < plant.noteSequence.Length; i++){
+        //     correctSequence.text += plant.noteSequence[i] + " ";
+        // }
         render = GetComponent<SpriteRenderer>();
     }
 
     public bool checkInput(DirectionEnum dir){
         if(complete) return false;
 
-        keyPressText.text = $"Pressed: {dir}";
         if(plant.noteSequence.Length <= correctInputs) { // why is it here?
             return false;
         }
@@ -54,8 +53,6 @@ public class PlantController : MonoBehaviour
             }   
         }
         if(correctInputs==plant.noteSequence.Length){
-            keyPressText.gameObject.SetActive(false);
-           scoreText.gameObject.SetActive(false);
            complete = true;
            return true;
         }

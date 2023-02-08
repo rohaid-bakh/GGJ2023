@@ -9,7 +9,8 @@ using DG.Tweening;
 public class InputRegister : BeatAlert
 {
     private MainInput control;
-    [SerializeField] private PlantController[] currPlants;
+    private LevelController level;
+    [SerializeField] private List<PlantController> currPlants;
     private bool timingWindow = false;
 
     [Header("UI images")]
@@ -24,6 +25,7 @@ public class InputRegister : BeatAlert
 
     private void Awake()
     {
+        level = GameObject.FindObjectOfType<LevelController>();
         control = new MainInput();
         control.Enable();
         control.Keyboard.Enable();
@@ -34,6 +36,15 @@ public class InputRegister : BeatAlert
 
     }
 
+    public void AddPlant(PlantController plant){
+        if(plant == null) return;
+        currPlants.Add(plant);
+    }
+
+    public void RemovePlant(PlantController plant){
+        if(plant == null) return;
+        currPlants.Remove(plant);
+    }
     private void AlertPlants(DirectionEnum dir)
     {
         if(currNoteIndex >= noteArray.Length){
@@ -45,14 +56,17 @@ public class InputRegister : BeatAlert
         //write function that checks that we're on beat. Do I set like. a receiver...
         if (timingWindow)
         {
-            for (int i = 0; i < currPlants.Length; i++)
+            for (int i = 0; i < currPlants.Count; i++)
             {
                bool complete =  currPlants[i].checkInput(dir);
                if(complete){
                 currCompletePlants++;
                 //    render.DOFade(0f , 2f).OnComplete(() => Destroy(gameObject))
                 SpriteRenderer plantDespawn = currPlants[i].GetComponent<SpriteRenderer>();
+                Vector3 currPlantLocation = currPlants[i].transform.position;
                 plantDespawn.DOFade(0f , 0.75f).OnComplete(() => Destroy(plantDespawn.gameObject));// remove thing Off Screen
+                 level.SpawnNewOne(1f, currPlantLocation); // add a delay
+
                }
             }
             if(dir == DirectionEnum.LEFT){
@@ -64,13 +78,13 @@ public class InputRegister : BeatAlert
         }
         else
         {
-            for (int i = 0; i < currPlants.Length; i++)
+            for (int i = 0; i < currPlants.Count; i++)
             {
                 currPlants[i].checkInput(DirectionEnum.NONE);
             }
              noteArray[currNoteIndex].sprite = leaves[2];
         }
-        scoreTracker.text = $"Completed Plants: {currCompletePlants}";
+        scoreTracker.text = $"{currCompletePlants}";
         currNoteIndex++;
        
     }
