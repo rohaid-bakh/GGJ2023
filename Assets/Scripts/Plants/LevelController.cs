@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
-
+using UnityEngine.SceneManagement;
 //keeps track of plants to generate
 //keeps track of score
 //make a singleton
@@ -12,10 +12,12 @@ public class LevelController : MonoBehaviour
     [SerializeField] private Transform[] spawnPositions;
     private InputRegister input;
     private int currPlant = 0;
+    private Score updateScore;
 
      void Awake()
     {
-        input = GameObject.FindObjectOfType<InputRegister>();
+        input = GameObject.FindObjectOfType<InputRegister>(true);
+        updateScore = GameObject.FindObjectOfType<Score>();
         Assert.IsNotNull(input, "Missing InputRegister Script reference in scene");
         // Assert.IsNotNull(level, "The LevelSO array in Level Controller is empty. Please check it");
         //write an assertion that checks that # to spawn is less than == # of spawnPositions
@@ -28,8 +30,12 @@ public class LevelController : MonoBehaviour
      
     //    Assert.IsNotNull(level, "is null somehwow");
     //     Assert.IsNotNull(level.plantsForLevel, "is empty somehow");
-        if(plantIndex >= level.plantsForLevel.Length) return;
-       GameObject newPlant = Instantiate(level.plantsForLevel[plantIndex], position, Quaternion.identity);
+        updateScore.updateScore(plantIndex);
+        if(plantIndex >= level.plantsForLevel.Length) {
+            NextLevel();
+            return;
+            }
+       GameObject newPlant = Instantiate(level.plantsForLevel[plantIndex], position, Quaternion.identity, transform);
        input.AddPlant(newPlant.GetComponent<PlantController>());
        currPlant++;
     }
@@ -45,6 +51,10 @@ public class LevelController : MonoBehaviour
     private IEnumerator DelaySpawn(float delaySeconds, Vector3 position){
         yield return new WaitForSeconds(delaySeconds);
         SpawnNewOne(position);
+    }
+
+    private void NextLevel(){
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
     
 }

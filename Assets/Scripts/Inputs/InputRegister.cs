@@ -23,8 +23,11 @@ public class InputRegister : BeatAlert
     private float currCompletePlants; 
     private int currNoteIndex = 0; 
 
+    bool start = false;
+
     private void Awake()
     {
+        
         level = GameObject.FindObjectOfType<LevelController>();
         control = new MainInput();
         control.Enable();
@@ -33,9 +36,25 @@ public class InputRegister : BeatAlert
         control.Keyboard.Right.performed += _ => AlertPlants(DirectionEnum.RIGHT);
         control.Keyboard.Left.Enable();
         control.Keyboard.Left.performed += _ => AlertPlants(DirectionEnum.LEFT);
-
+        
     }
 
+
+    private void OnEnable() {
+        control.Enable();
+        control.Keyboard.Enable();
+        control.Keyboard.Right.Enable();
+        control.Keyboard.Left.Enable();
+       
+        
+    }
+
+    private void OnDisable() {
+        control.Keyboard.Right.Disable();
+        control.Keyboard.Left.Disable();
+        control.Keyboard.Disable();
+        control.Disable();
+    }
     public void AddPlant(PlantController plant){
         if(plant == null) return;
         currPlants.Add(plant);
