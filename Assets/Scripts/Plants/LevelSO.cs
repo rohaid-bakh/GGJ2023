@@ -5,6 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "LevelSO", menuName = "Level", order = 0)]
 public class LevelSO : ScriptableObject
 {
-  public PlantSO[] plantsForLevel;
+  public GameObject[] plantsForLevel;
   public int spawnNumber;
 }
